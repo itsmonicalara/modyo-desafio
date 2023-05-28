@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import '../styles/Card.css'
-import questionImg from '../img/whoIs.jpg'
 
 
 function Card() {
 
     const [fetchedData, setFetchedData] = useState([]);
     const [revealedCards, setRevealedCards] = useState([]);
+
+    const [matchingCount, setMatchingCount] = useState(0);
+    const [mistakeCount, setMistakeCount] = useState(0);
 
 
     useEffect(() => {
@@ -52,29 +54,47 @@ function Card() {
 
     const handleClick = (index) => {
         const updatedData = [...fetchedData];
-        updatedData[index].isRevealed = true;
-        setFetchedData(updatedData);
-      
         const updatedCards = [...revealedCards];
+      
+        // Return if already 2 cards are revealed
+        if (updatedCards.length === 2) {
+          return;
+        }
+      
+        updatedData[index].isRevealed = true;
         updatedCards.push(index);
+        setFetchedData(updatedData);
         setRevealedCards(updatedCards);
       
         if (updatedCards.length === 2) {
-          setTimeout(() => {
-            const [firstCard, secondCard] = updatedCards;
-            const resetData = [...updatedData];
-            resetData[firstCard].isRevealed = false;
-            resetData[secondCard].isRevealed = false;
-            setFetchedData(resetData);
+          const [firstCard, secondCard] = updatedCards;
+      
+          if (updatedData[firstCard].fields.image.url === updatedData[secondCard].fields.image.url) {
+            setMatchingCount((prevCount) => prevCount + 1);
+            // Clear revealed cards if they match
             setRevealedCards([]);
-          }, 3000);
+          } else {
+            // Hide revealed cards after a delay
+            setMistakeCount((prevCount) => prevCount + 1);
+            setTimeout(() => {
+              const resetData = [...updatedData];
+              resetData[firstCard].isRevealed = false;
+              resetData[secondCard].isRevealed = false;
+              setFetchedData(resetData);
+              setRevealedCards([]);
+            }, 1000);
+          }
         }
-    };
+      };
+      
+      
       
 
     
     return (
-        <div>
+        <div>        
+          <p>Matching count: {matchingCount}</p>
+          <p>Mistake count: {mistakeCount}</p>  
           <div className='testAPI'>
             <div className='row gy-3'>
               {fetchedData.map((item, index) => (
