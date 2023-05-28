@@ -6,7 +6,6 @@ function App() {
     <div className="App">
       <h1 className='title'>Memory Game</h1>
       <Menu></Menu>
-      {/* <div className='backImage'/>      */}
     </div>
   );
 }
