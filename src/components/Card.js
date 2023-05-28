@@ -16,7 +16,6 @@ function Card() {
             const slicedData = response.data.entries.slice(0, 6);
             const duplicatedData = duplicateImages(slicedData, 2);
             const shuffledData = shuffleArray(duplicatedData);
-            // Sliced the array to get only the first 12 elements
             setFetchedData(shuffledData);
             }   catch(error) {
                 console.error('Error fetching data:', error);
