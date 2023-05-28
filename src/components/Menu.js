@@ -4,7 +4,7 @@ import Card from './Card'
 
 function Menu() {
   return (
-    <div class='container bg-black p-4 bg-opacity-75 rounded'>
+    <div className='container bg-black p-4 bg-opacity-50 rounded'>
         <Card></Card>            
     </div>   
   )

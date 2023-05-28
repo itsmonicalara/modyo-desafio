@@ -6,11 +6,10 @@ function Card() {
     const [fetchedData, setFetchedData] = useState([]);
     useEffect(() => {
         const getData = async () => {
-            const data = await axios.get(
-                // 'https://fed-team.modyo.cloud/api/content/spaces/animals/types/game/entries?per_page=20'
-                'https://jsonplaceholder.typicode.com/todos/1'           
+            const response = await axios.get(
+                'https://fed-team.modyo.cloud/api/content/spaces/animals/types/game/entries?per_page=20'
             );
-            setFetchedData(data);
+            setFetchedData(response.data.entries);
         };
         getData();
     }, []);
@@ -19,11 +18,19 @@ function Card() {
     
   return (
     <div>
-        <div class="card border-0" style={{width: '18rem'}}>
-            <img class="card-img-top rounded" src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350" alt="..."></img>
+
+        <div className='testAPI'>
+            {fetchedData && fetchedData.map((item)=>(
+                <div key={item.meta.uuid} className="card border-0" style={{ width: '18rem' }}>
+                    <img className='card-img-top rounded' src={item.fields.image.url} alt={item.fields.image.title}></img>
+                    <div className='card-body'>
+                        <h5 className='card-title'>{item.meta.name}</h5>
+                        <p className='card-text'>{item.fields.image.description}</p>
+                    </div>
+                </div>
+            ))}
         </div>
-        {fetchedData.data ? <h2>id: {fetchedData.data.id}</h2> : null}
-        {fetchedData.data ? <h2>title: {fetchedData.data.title}</h2> : null}
+       
     </div>
   )
 }
