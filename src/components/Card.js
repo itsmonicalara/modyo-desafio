@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import '../styles/Card.css'
+import questionImg from '../img/whoIs.jpg'
 
 
 function Card() {
 
     const [fetchedData, setFetchedData] = useState([]);
+    const [revealedCards, setRevealedCards] = useState([]);
+
+
     useEffect(() => {
         const getData = async () => {
             try {
@@ -40,30 +44,60 @@ function Card() {
         const duplicatedData = [];
         data.forEach((item) => {
           for (let i = 0; i < repeatCount; i++) {
-            duplicatedData.push({ ...item });
+            duplicatedData.push({ ...item, isRevealed: false });
           }
         });
         return duplicatedData;
     };
 
+    const handleClick = (index) => {
+        const updatedData = [...fetchedData];
+        updatedData[index].isRevealed = true;
+        setFetchedData(updatedData);
+      
+        const updatedCards = [...revealedCards];
+        updatedCards.push(index);
+        setRevealedCards(updatedCards);
+      
+        if (updatedCards.length === 2) {
+          setTimeout(() => {
+            const [firstCard, secondCard] = updatedCards;
+            const resetData = [...updatedData];
+            resetData[firstCard].isRevealed = false;
+            resetData[secondCard].isRevealed = false;
+            setFetchedData(resetData);
+            setRevealedCards([]);
+          }, 3000);
+        }
+    };
+      
+
     
-  return (
-    <div>
-        <div className='testAPI'>
+    return (
+        <div>
+          <div className='testAPI'>
             <div className='row gy-3'>
-                {fetchedData && fetchedData.map((item, index)=>(
-                    <div className='col-lg-3 col-md-4 col-sm-6' key={`${item.meta.slug} - ${index}`}>
-                    <div className='card border-0' style={{ width: '100%'}}>
-                            <div className='square-image rounded'>
-                                    <img className='card-img-top' src={item.fields.image.url} alt={item.fields.image.title}></img>
-                            </div>
-                    </div> 
+              {fetchedData.map((item, index) => (
+                <div className='col-lg-3 col-md-4 col-sm-6' key={`${item.meta.slug}-${index}`}>
+                  <div
+                    className={`card border-0 ${item.isRevealed ? 'revealed' : ''}`}
+                    style={{ width: '100%' }}
+                    onClick={() => handleClick(index)}
+                  >
+                    <div className='square-image rounded'>
+                      <img
+                        className='card-img-top'
+                        src={item.isRevealed ? item.fields.image.url : 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/640px-Question_mark_%28black%29.svg.png'}
+                        alt={item.fields.image.title}
+                      />
                     </div>
-                ))}
-            </div>            
-        </div>  
-    </div>
-  )
-}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
 
 export default Card
