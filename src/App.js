@@ -8,8 +8,8 @@ function App() {
   return (
     <div className="App">
       <h1 className='title'>Memory Game</h1>
-      <Login/>
-      {/* <Menu/> */}
+      {/* <Login/> */}
+      <Menu/>
     </div>
   );
 }

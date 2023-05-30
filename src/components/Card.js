@@ -98,7 +98,7 @@ function Card() {
           <div className='testAPI'>
             <div className='row gy-3'>
               {fetchedData.map((item, index) => (
-                <div className='col-lg-3 col-md-4 col-sm-6' key={`${item.meta.slug}-${index}`}>
+                <div className='col-lg-2 col-md-3 col-sm-4' key={`${item.meta.slug}-${index}`}>
                   <div
                     className={`card border-0 ${item.isRevealed ? 'revealed' : ''}`}
                     style={{ width: '100%' }}
