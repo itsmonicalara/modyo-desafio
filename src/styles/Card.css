@@ -8,6 +8,10 @@
 .square-image img {
     height: 100%;
 }
+
+.cardItem:hover {
+    transform: scale(1.05);
+  }
   
 
   
