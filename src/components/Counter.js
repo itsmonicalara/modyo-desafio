@@ -14,4 +14,5 @@ function Counter({ matchingCount, mistakeCount }) {
   )
 }
 
+
 export default Counter

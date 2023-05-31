@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Routes, Redirect, BrowserRouter } from 'react-router-dom'
 import './App.css';
 import Menu from './components/Menu'
 import Login from './components/Login'

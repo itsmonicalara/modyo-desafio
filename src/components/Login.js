@@ -1,4 +1,4 @@
-import React, { useState }  from 'react'
+import React, { useState, useEffect }  from 'react'
 import '../styles/Login.css'
 
 
@@ -22,7 +22,7 @@ const Login = ({ setUserData }) => {
             setUserData(userData[name]);
           } else {
             // If user data does not exist, initialize hit and error counts
-            const newUser = { name, hits: 0, errors: 0 };
+            const newUser = { name, matchingCount: 0, mistakeCount: 0 };
             setUserData(newUser);
             userData[name] = newUser;
             // Save user data to localStorage
@@ -30,6 +30,14 @@ const Login = ({ setUserData }) => {
           }
         }
       };
+
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem('userData')) || {};
+        const currentUser = userData[name];
+        if (currentUser) {
+          setUserData(currentUser);
+        }
+    }, [name, setUserData]);
 
   return (
     <div className='Login'>
