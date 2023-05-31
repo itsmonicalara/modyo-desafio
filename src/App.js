@@ -8,18 +8,21 @@ function App() {
 
   const [matchingCount, setMatchingCount] = useState(0);
   const [mistakeCount, setMistakeCount] = useState(0);
+  const [userData, setUserData] = useState(null);
+
+  if(!userData){
+    return <Login setUserData= {setUserData} />;
+  }
 
   return (
     <div className="App">
-      <h1 className='title mt-3'>Memory Game</h1>
-      {/* <Counter matchingCount={matchingCount} mistakeCount={mistakeCount}></Counter> */}
-      <Login/>
-      {/* <Menu
+      <Counter matchingCount={matchingCount} mistakeCount={mistakeCount}></Counter> */     
+      <Menu
         matchingCount={matchingCount}
         setMatchingCount={setMatchingCount}
         mistakeCount={mistakeCount}
         setMistakeCount={setMistakeCount}
-      /> */}
+      />
     </div>
   );
 }

@@ -1,20 +1,50 @@
-import React from 'react'
+import React, { useState }  from 'react'
 import '../styles/Login.css'
 
-function Login() {
+const Login = ({ setUserData }) => {
+
+    const [name, setName] = useState('');
+      
+    const handleNameChange = (e) => {
+          setName(e.target.value);
+    };
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        // Check if the name is provided
+        if (name.trim() !== '') {
+          // Retrieve user data from localStorage
+          const userData = JSON.parse(localStorage.getItem('userData')) || {};
+          // Check if user data already exists for the entered name
+          if (userData[name]) {
+            // If user data exists, update the hit and error counts
+            setUserData(userData[name]);
+          } else {
+            // If user data does not exist, initialize hit and error counts
+            const newUser = { name, hits: 0, errors: 0 };
+            setUserData(newUser);
+            userData[name] = newUser;
+            // Save user data to localStorage
+            localStorage.setItem('userData', JSON.stringify(userData));
+          }
+        }
+      };
+
   return (
     <div className='Login'>
+        <h1 className='title mt-3'>Memory Game</h1>
         <div className='container'>
-            <h3 className='name-title'>Enter your name</h3>
-            <div className="input-group mb-3">
-                <span className="input-group-text" id="basic-addon1">@</span>
-                <input type="text" className="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1"/>
-                <button className="btn btn-secondary" type="button" id="button-addon2">Send</button>
-            </div>
+            <form onSubmit={handleLogin}>
+                <div className="mb-3">
+                <label htmlFor="name-title" className="form-label">Enter your name</label>
+                <input type="text" className="form-control" id="name" value={name} onChange={handleNameChange} required />
+                </div>
+                <button type="submit" className="btn btn-primary">Login</button>
+            </form>
         </div>
         
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
