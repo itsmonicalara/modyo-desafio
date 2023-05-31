@@ -3,14 +3,10 @@ import axios from 'axios';
 import '../styles/Card.css'
 
 
-function Card() {
+function Card({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount }) {
 
     const [fetchedData, setFetchedData] = useState([]);
     const [revealedCards, setRevealedCards] = useState([]);
-
-    const [matchingCount, setMatchingCount] = useState(0);
-    const [mistakeCount, setMistakeCount] = useState(0);
-
 
     useEffect(() => {
         const getData = async () => {
@@ -88,9 +84,7 @@ function Card() {
       };
         
     return (
-        <div>        
-          <p>Matching count: {matchingCount}</p>
-          <p>Mistake count: {mistakeCount}</p>  
+        <div>         
           <div className='testAPI'>
             <div className='row gy-3'>
               {fetchedData.map((item, index) => (

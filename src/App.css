@@ -5,7 +5,10 @@ body {
 
 .title { 
   text-align: center;
-  color: white;
+  color: rgb(21, 31, 56);
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  box-sizing: border-box;
   /* position: absolute; */
   /* justify-content: center; */
   /* align-items: center; */
