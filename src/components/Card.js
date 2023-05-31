@@ -6,7 +6,7 @@ import '../styles/Card.css'
 function Card({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount }) {
 
     const [fetchedData, setFetchedData] = useState([]);
-    const [revealedCards, setRevealedCards] = useState([]);
+    const [revealedCards, setRevealedCards] = useState([]);  
 
     useEffect(() => {
         const getData = async () => {
@@ -69,6 +69,9 @@ function Card({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount }
             setMatchingCount((prevCount) => prevCount + 1);
             // Clear revealed cards if they match
             setRevealedCards([]);
+            if(matchingCount + 1 === fetchedData.length / 2) {
+              alert('You won!');
+            }
           } else {
             // Hide revealed cards after a delay
             setMistakeCount((prevCount) => prevCount + 1);
