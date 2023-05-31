@@ -1,6 +1,7 @@
 import React, { useState }  from 'react'
 import '../styles/Login.css'
 
+
 const Login = ({ setUserData }) => {
 
     const [name, setName] = useState('');
@@ -33,7 +34,7 @@ const Login = ({ setUserData }) => {
   return (
     <div className='Login'>
         <h1 className='title mt-3'>Memory Game</h1>
-        <div className='container'>
+        <div className='login-form'>
             <form onSubmit={handleLogin}>
                 <div className="mb-3">
                 <label htmlFor="name-title" className="form-label">Enter your name</label>
