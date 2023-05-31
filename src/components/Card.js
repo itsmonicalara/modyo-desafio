@@ -86,11 +86,7 @@ function Card() {
           }
         }
       };
-      
-      
-      
-
-    
+        
     return (
         <div>        
           <p>Matching count: {matchingCount}</p>
