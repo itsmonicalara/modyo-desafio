@@ -7,6 +7,7 @@ function Card({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount }
 
     const [fetchedData, setFetchedData] = useState([]);
     const [revealedCards, setRevealedCards] = useState([]);  
+    const [gameWon, setGameWon] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
@@ -69,8 +70,10 @@ function Card({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount }
             setMatchingCount((prevCount) => prevCount + 1);
             // Clear revealed cards if they match
             setRevealedCards([]);
+            // Check if all cards are revealed
             if(matchingCount + 1 === fetchedData.length / 2) {
-              alert('You won!');
+              // alert('You won!');
+              setGameWon(true);
             }
           } else {
             // Hide revealed cards after a delay
@@ -87,7 +90,12 @@ function Card({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount }
       };
         
     return (
-        <div>         
+        <div> 
+          {gameWon && ( 
+          <div className="alert alert-success" role="alert">
+            You have won the memory game!
+          </div>
+          )}        
           <div className='testAPI'>
             <div className='row gy-3'>
               {fetchedData.map((item, index) => (
