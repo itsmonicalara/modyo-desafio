@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.name-title {
+    color: white;
+}
+
+.input-group-text {
+    font-family: 'DM Sans', sans-serif;
+}
+
+.btn btn-secondary {
+    font-family: 'DM Sans', sans-serif;
+}

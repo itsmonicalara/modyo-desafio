@@ -11,15 +11,15 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className='title'>Memory Game</h1>
-      <Counter matchingCount={matchingCount} mistakeCount={mistakeCount}></Counter>
-      {/* <Login/> */}
-      <Menu
+      <h1 className='title mt-3'>Memory Game</h1>
+      {/* <Counter matchingCount={matchingCount} mistakeCount={mistakeCount}></Counter> */}
+      <Login/>
+      {/* <Menu
         matchingCount={matchingCount}
         setMatchingCount={setMatchingCount}
         mistakeCount={mistakeCount}
         setMistakeCount={setMistakeCount}
-      />
+      /> */}
     </div>
   );
 }
