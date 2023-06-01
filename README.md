@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Modyo Challenge  - Memory Game 🃏
 
 
 ## 1. Head to https://nodejs.org/en/ and install the LTS version.
