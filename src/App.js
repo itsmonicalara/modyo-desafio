@@ -17,7 +17,8 @@ function App() {
         <Login setUserData = {setUserData} matchingCount={matchingCount} mistakeCount={mistakeCount} setName={setName} />
       )};
       {userData && (
-        <><Counter matchingCount={matchingCount} mistakeCount={mistakeCount} /><Menu
+        <><Counter matchingCount={matchingCount} mistakeCount={mistakeCount}/>
+        <Menu
           matchingCount={matchingCount}
           setMatchingCount={setMatchingCount}
           mistakeCount={mistakeCount}

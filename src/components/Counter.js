@@ -2,6 +2,7 @@ import React from 'react'
 import '../styles/Counter.css'
 
 function Counter({ matchingCount, mistakeCount }) {
+
   return (
     <div className='Counter'>
         <h1 className='title mt-3'>Memory Game</h1>
