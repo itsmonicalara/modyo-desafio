@@ -9,20 +9,21 @@ function App() {
   const [matchingCount, setMatchingCount] = useState(0);
   const [mistakeCount, setMistakeCount] = useState(0);
   const [userData, setUserData] = useState(null);
-
-  if(!userData){
-    return <Login setUserData = {setUserData} />;
-  }
+  const [name, setName] = useState('');
 
   return (
     <div className="App">
-      <Counter matchingCount={matchingCount} mistakeCount={mistakeCount}/>
-      <Menu
-        matchingCount={matchingCount}
-        setMatchingCount={setMatchingCount}
-        mistakeCount={mistakeCount}
-        setMistakeCount={setMistakeCount}
-        />   
+      {!userData && (
+        <Login setUserData = {setUserData} matchingCount={matchingCount} mistakeCount={mistakeCount} setName={setName} />
+      )};
+      {userData && (
+        <><Counter matchingCount={matchingCount} mistakeCount={mistakeCount} /><Menu
+          matchingCount={matchingCount}
+          setMatchingCount={setMatchingCount}
+          mistakeCount={mistakeCount}
+          setMistakeCount={setMistakeCount}
+          name={name}/></> 
+      )};       
     </div>
   );
 }

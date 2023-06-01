@@ -1,43 +1,44 @@
 import React, { useState, useEffect }  from 'react'
 import '../styles/Login.css'
 
+const Login = ({ setUserData, matchingCount, mistakeCount, setName }) => {
 
-const Login = ({ setUserData }) => {
-
-    const [name, setName] = useState('');
+    const [nameInput, setNameInput] = useState('');
       
     const handleNameChange = (e) => {
-          setName(e.target.value);
+        setNameInput(e.target.value);
     };
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // Check if the name is provided
-        if (name.trim() !== '') {
-          // Retrieve user data from localStorage
+        if (nameInput.trim() !== '') {
+          setName(nameInput);
           const userData = JSON.parse(localStorage.getItem('userData')) || {};
-          // Check if user data already exists for the entered name
-          if (userData[name]) {
-            // If user data exists, update the hit and error counts
-            setUserData(userData[name]);
+          if (userData[nameInput]) {
+            const currentUserData = userData[nameInput];
+            currentUserData.matchingCount += matchingCount;
+            currentUserData.mistakeCount += mistakeCount;
+            setUserData(currentUserData);
           } else {
-            // If user data does not exist, initialize hit and error counts
-            const newUser = { name, matchingCount: 0, mistakeCount: 0 };
+            const newUser = { 
+                name: nameInput, 
+                matchingCount : matchingCount, 
+                mistakeCount : mistakeCount,
+            };
             setUserData(newUser);
-            userData[name] = newUser;
-            // Save user data to localStorage
-            localStorage.setItem('userData', JSON.stringify(userData));
+            userData[nameInput] = newUser;
           }
+          localStorage.setItem('userData', JSON.stringify(userData));
         }
       };
 
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('userData')) || {};
-        const currentUser = userData[name];
+        const currentUser = userData[nameInput];
         if (currentUser) {
           setUserData(currentUser);
         }
-    }, [name, setUserData]);
+    }, [nameInput, setUserData]);
 
   return (
     <div className='Login'>
@@ -46,7 +47,7 @@ const Login = ({ setUserData }) => {
             <form onSubmit={handleLogin}>
                 <div className="mb-3">
                 <label htmlFor="name-title" className="form-label">Enter your name</label>
-                <input type="text" className="form-control" id="name" value={name} onChange={handleNameChange} required />
+                <input type="text" className="form-control" id="name" value={nameInput} onChange={handleNameChange} required />
                 </div>
                 <button type="submit" className="btn btn-primary">Login</button>
             </form>

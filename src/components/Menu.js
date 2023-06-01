@@ -2,7 +2,7 @@ import React from 'react'
 import '../styles/Menu.css'
 import Card from './Card'
 
-function Menu({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount }) {
+function Menu({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount, name }) {
 
   return (
     <div className='menu'>
@@ -12,6 +12,7 @@ function Menu({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount }
             setMatchingCount={setMatchingCount}
             mistakeCount={mistakeCount}
             setMistakeCount={setMistakeCount}
+            name={name}
           />            
       </div> 
     </div>

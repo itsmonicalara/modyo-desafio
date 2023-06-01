@@ -3,13 +3,13 @@ import axios from 'axios';
 import '../styles/Card.css'
 
 
-function Card({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount }) {
+function Card({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount, name }) {
 
     const [fetchedData, setFetchedData] = useState([]);
     const [revealedCards, setRevealedCards] = useState([]);  
     const [gameWon, setGameWon] = useState(false);
 
-    useEffect(() => {
+    useEffect(() => {      
         const getData = async () => {
             try {
             const response = await axios.get(
@@ -72,7 +72,12 @@ function Card({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount }
             setRevealedCards([]);
             // Check if all cards are revealed
             if(matchingCount + 1 === fetchedData.length / 2) {
-              // alert('You won!');
+              const userData = JSON.parse(localStorage.getItem('userData')) || {};
+              if (userData[name]) {
+                userData[name].matchingCount += matchingCount;
+                userData[name].mistakeCount += mistakeCount;
+                localStorage.setItem('userData', JSON.stringify(userData));
+              }
               setGameWon(true);
             }
           } else {
@@ -93,7 +98,7 @@ function Card({ matchingCount, setMatchingCount, mistakeCount, setMistakeCount }
         <div> 
           {gameWon && ( 
           <div className="alert alert-success" role="alert">
-            You have won the memory game!
+            Congratulations, {name}! You have won the memory game!
           </div>
           )}        
           <div className='testAPI'>
